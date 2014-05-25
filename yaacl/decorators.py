@@ -19,7 +19,6 @@ def acl_register_view(view_name, display_name=None):
 
     if not view_name in ACL.acl_list:
         ACL.acl_list[view_name] = entry
-    print ACL.acl_list
 
     def decorator(view_func):
         @wraps(view_func, assigned=available_attrs(view_func))
