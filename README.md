@@ -5,8 +5,8 @@ Yet another access control list (ACL) per view for Django
 
 
 ## Installation
-* Just copy directory ``yaacl`` into your PYTHON_PATH
-* Soon will be ``setup.py``, so installation will be normal ;-)
+* Clone this repo to your PC
+* Run ``pip install yaACL``
 * Put ``yaacl`` in INSTALLED_APPS, after auth and admin apps
 * Run ``./manage.py syncdb``
 
@@ -90,7 +90,6 @@ No, it has not.
 
 ```
 
-
 ## Information
 * If flag ``is_superuser`` is ``True``, then always access is granted
 * No-access page template is located in ``yaacl/no_access.html`` file
@@ -100,7 +99,6 @@ No, it has not.
 
 ## Todo
 * Per group access
-* ``setup.py`` file
 * ``.travis.yml``
 * A flag, to indicates a resources that staff members has full access
 * Extend this documentation with information about two monkey-patches I've been using and information about admin
