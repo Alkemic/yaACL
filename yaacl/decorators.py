@@ -26,7 +26,7 @@ def acl_register_view(view_name, display_name=None):
             """
             :type request: django.http.request.HttpRequest
             """
-            if has_access(request.user, view_name):
+            if request.user.is_authenticated() and has_access(request.user, view_name):
                 return view_func(request, *args, **kwargs)
             else:
                 return no_access(request)
