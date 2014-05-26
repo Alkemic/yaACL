@@ -11,7 +11,7 @@ def acl_register_view(view_name, display_name=None):
     :type view_name: str
     :type display_name: unicode
     """
-    entry, created = ACL.objects.get_or_create(view=view_name)
+    entry, created = ACL.objects.get_or_create(resource=view_name)
 
     if created or display_name != entry.display:
         entry.display = display_name
