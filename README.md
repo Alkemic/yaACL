@@ -12,8 +12,8 @@ Yet another access control list (ACL) per view for Django
 
 
 ## Configuration
-* This app get information about
-* If you also have
+* This app get information about your auth user model form settings (``AUTH_USER_MODEL``)
+* If you also have custom group model, then define it in ``settings.ACL_GROUP_USER_MODEL`` (ie: ``cms_user.group``)
 
 
 ## Usage
@@ -21,7 +21,10 @@ In views, import ``acl_register_view``, then decorate views you want under contr
 
 ```python
 from yaacl.decorators import acl_register_view
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 @acl_register_view('short_resource_name', 'Short description about this view')
 def index(request):
     pass
@@ -36,32 +39,47 @@ Let's say, you have a typical CRUD view in you news application, so code would b
 
 ```python
 from yaacl.decorators import acl_register_view
+from django.contrib.auth.decorators import login_required
 
+
+#decorationg standard function based views
+@login_required
 @acl_register_view('news.index', 'News list')
 def index(request):
     ...
 
+@login_required
 @acl_register_view('news.create', 'Create new news')
 def create(request):
     ...
 
+@login_required
 @acl_register_view('news.update', 'Update news entry')
 def update(request):
     ...
 
+@login_required
 @acl_register_view('news.delete', 'Delete news entry')
 def delete(request):
     ...
+
+#decoration class-based views
+class Create(FormView):
+    @method_decorator(login_required)
+    @method_decorator(acl_register_view('news.cms.Create', u"Tworzenie wiadomości"))
+    def dispatch(self, request, *args, **kwargs):
+        ...
+
+
 ```
 
 So, your resources list will be like this:
 
-| pk | resource    | description       |
-| -- | ----------- | ----------------- |
-| 1  | news.index  | News list         |
-| 2  | news.create | Create new news   |
-| 3  | news.update | Update news entry |
-| 4  | news.delete | Delete news entry |
+
+* ``news.index`` News list
+* ``news.create`` Create new news
+* ``news.update`` Update news entry
+* ``news.delete`` Delete news entry
 
 Now if you want to check if current user has access to news.index, then in templates
 
