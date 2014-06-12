@@ -8,6 +8,7 @@ Yet another access control list (ACL) per view for Django
 * Clone this repo to your PC
 * Run ``pip install yaACL``
 * Put ``yaacl`` in INSTALLED_APPS, after auth and admin apps
+* Put ``import yaacl`` at the end of your current settings file
 * Run ``./manage.py syncdb``
 
 
@@ -116,7 +117,7 @@ No, it has not.
 
 
 ## Todo
-* Per group access
 * ``.travis.yml``
 * A flag, to indicates a resources that staff members has full access
 * Extend this documentation with information about two monkey-patches I've been using and information about admin
+* There is a problem I need to take care of. When adding yaACL to existing project, it fails to ``syncdb``
