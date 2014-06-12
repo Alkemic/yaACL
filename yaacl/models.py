@@ -2,8 +2,8 @@
 from datetime import datetime
 
 from django.db import models
-# from django.utils.translation import ugettext as _
-_ = lambda str: str
+from django.utils.translation import gettext_lazy as _
+
 
 class ACL(models.Model):
     acl_list = {}

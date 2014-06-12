@@ -1,13 +1,10 @@
 #-*- coding:utf-8 -*-
-from django.contrib.auth import get_user_model
 from django.db.models.signals import class_prepared
 from django.conf import settings
 from django.db.models import ManyToManyField
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext_lazy as _
 
 from .models import ACL
-
-# get_user_model()
 
 __author__ = 'Daniel Czuba <dc@danielczuba.pl>'
 

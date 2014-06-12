@@ -8,4 +8,3 @@ def no_access(request):
     template = loader.get_template('yaacl/no_access.html')
 
     return TemplateResponse(request, template)
-
