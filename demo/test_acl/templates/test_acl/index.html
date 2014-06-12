@@ -5,6 +5,13 @@
     <title>yaACL demo index</title>
 </head>
 <body>
+
+{% if user.is_authenticated %}
+Logged in as {{ user }}
+{% else %}
+<a href="/admin/">Login</a>
+{% endif %}
+
 <ul>
     <li>{% if request.user|has_access:'test_acl.test' %}
         <a href="{% url 'test-acl:test' %}">Has</a>{% else %}Doesn't has{% endif %} access to test-acl:test</li>

@@ -5,6 +5,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', include('test_acl.urls', namespace='test-acl')),
+    url(r'^', include('test_acl.urls', namespace='test-acl')),
     url(r'^admin/', include(admin.site.urls)),
 )
