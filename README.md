@@ -19,6 +19,7 @@ Yet another access control list (ACL) per view for Django
 
 ## Usage
 In views, import ``acl_register_view``, then decorate views you want under control access.
+After all views are decorated, run command ``./manage.py acl_register``, so all views will be registered in database.
 
 ```python
 from yaacl.decorators import acl_register_view

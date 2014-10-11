@@ -16,10 +16,12 @@ auth_and_group = {
 
 
 def add_acl_field(sender, **kwargs):
-    """Injection of acl m2m field into current user (auth) and group models, on `class_prepared` signal"""
-
+    """Injection of acl m2m field into current user (auth) and group models,
+    on `class_prepared` signal"""
     if sender._meta.__str__().lower() in auth_and_group:
-        field = ManyToManyField(ACL, verbose_name=_('ACL'), blank=True, null=True, related_name=auth_and_group[sender._meta.__str__().lower()])
+        related_name = auth_and_group[sender._meta.__str__().lower()]
+        field = ManyToManyField(ACL, verbose_name=_('ACL'), blank=True,
+                                null=True, related_name=related_name)
         field.contribute_to_class(sender, 'acl')
 
 class_prepared.connect(add_acl_field)
