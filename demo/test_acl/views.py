@@ -25,3 +25,8 @@ def other_index(request):
 def utf_test(request):
     pass
 
+
+@acl_register_view('test_acl.another_test', u"Another test")
+def another_test(request):
+    pass
+

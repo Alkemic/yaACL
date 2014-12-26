@@ -8,7 +8,7 @@ f.close()
 
 setup(
     name='yaacl',
-    version='0.4',
+    version='0.5',
     description='Yet another access control list (ACL) per view for Django',
     long_description=readme,
     author="Daniel Czuba",

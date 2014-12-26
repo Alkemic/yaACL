@@ -19,5 +19,8 @@ class Command(BaseCommand):
                 pass
 
         for view_name, acl in ACL.acl_list.items():
-            entry = ACL(resource=view_name)
-            entry.save()
+            entry, created = ACL.objects.get_or_create(resource=view_name)
+
+            if created:
+                entry.display = acl.display
+                entry.save()

@@ -13,10 +13,11 @@ def acl_register_view(view_name, display_name=None):
     :type view_name: str
     :type display_name: unicode
     """
-    try:
-        entry = ACL.objects.get(resource=view_name)
-    except ACL.DoesNotExist:
-        entry = None
+    entry, created = ACL.objects.get_or_create(resource=view_name)
+
+    if created or display_name != entry.display:
+        entry.display = display_name
+        entry.save()
 
     if not view_name in ACL.acl_list:
         ACL.acl_list[view_name] = entry
