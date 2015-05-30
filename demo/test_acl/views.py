@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 from django.template import loader
 from django.template.response import TemplateResponse
 
@@ -29,4 +29,3 @@ def utf_test(request):
 @acl_register_view('test_acl.another_test', u"Another test")
 def another_test(request):
     pass
-

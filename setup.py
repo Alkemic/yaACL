@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 import os
 from setuptools import setup
 
@@ -8,7 +8,7 @@ f.close()
 
 setup(
     name='yaacl',
-    version='0.5',
+    version='0.5.1',
     description='Yet another access control list (ACL) per view for Django',
     long_description=readme,
     author="Daniel Czuba",

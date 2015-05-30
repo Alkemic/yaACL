@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 from functools import wraps
 
 from django.utils.decorators import available_attrs
@@ -19,7 +19,7 @@ def acl_register_view(view_name, display_name=None):
         entry.display = display_name
         entry.save()
 
-    if not view_name in ACL.acl_list:
+    if view_name not in ACL.acl_list:
         ACL.acl_list[view_name] = entry
 
     def decorator(view_func):
@@ -28,7 +28,11 @@ def acl_register_view(view_name, display_name=None):
             """
             :type request: django.http.request.HttpRequest
             """
-            if request.user.is_authenticated() and has_access(request.user, view_name):
+            has_access_to_resource = (
+                request.user.is_authenticated() and
+                has_access(request.user, display_name)
+            )
+            if has_access_to_resource:
                 return view_func(request, *args, **kwargs)
             else:
                 return no_access(request)

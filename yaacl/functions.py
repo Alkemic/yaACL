@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 from django.db.models.query_utils import Q
 from yaacl.models import ACL
 
@@ -12,7 +12,9 @@ def get_acl_resources(user):
 
     Checks if user has rights to given resource
     """
-    return ACL.objects.filter(Q(user=user)|Q(group__in=user.groups.all())).distinct()
+    return ACL.objects.filter(
+        Q(user=user) | Q(group__in=user.groups.all())
+    ).distinct()
 
 
 def has_access(user, resource, resources=None):
@@ -32,7 +34,10 @@ def has_access(user, resource, resources=None):
     if resources is None:
         resources = get_acl_resources(user)
 
-    return any([entry.resource.startswith(resource) for entry in get_acl_resources(user)])
+    return any([
+        entry.resource.startswith(resource)
+        for entry in get_acl_resources(user)
+    ])
 
 
 def has_all_access(user, resource, resources=None):
@@ -52,5 +57,16 @@ def has_all_access(user, resource, resources=None):
     if resources is None:
         resources = get_acl_resources(user)
 
-    return set([entry.id for entry in resources if entry.resource.startswith('news.')]) == \
-           set([entry.id for name, entry in ACL.acl_list.items() if name.startswith('news.')])
+    user_resources = set([
+        entry.id
+        for entry in resources
+        if entry.resource.startswith('news.')
+    ])
+
+    available_resources = set([
+        entry.id
+        for name, entry in ACL.acl_list.items()
+        if name.startswith('news.')
+    ])
+
+    return user_resources == available_resources

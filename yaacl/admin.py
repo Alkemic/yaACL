@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 from django.db.models import get_model
 from django.conf import settings
 from django.contrib import admin
@@ -31,9 +31,12 @@ if getattr(settings, 'ACL_GROUP_USER_MODEL', 'auth.Group') == 'auth.Group':
     except admin.sites.NotRegistered:
         pass
 
-    app_label, class_name  = getattr(settings, 'ACL_GROUP_USER_MODEL', 'auth.Group').split('.')
+    app_label, class_name = getattr(
+        settings,
+        'ACL_GROUP_USER_MODEL',
+        'auth.Group',
+    ).split('.')
     group_model = get_model(app_label, class_name)
-
 
     class ACLGroupAdmin(GroupAdmin):
         filter_horizontal = GroupAdmin.filter_horizontal + ('acl',)
