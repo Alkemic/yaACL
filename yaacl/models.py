@@ -22,7 +22,7 @@ class ACL(models.Model):
     )
     created_at = models.DateTimeField(
         _("Creation time"),
-        default=datetime.now(),
+        auto_now_add=True,
     )
     is_available = models.BooleanField(
         _("Is available to assign"),
