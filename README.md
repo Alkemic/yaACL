@@ -9,18 +9,21 @@ Yet another access control list (ACL) per view for Django
 * Run ``pip install yaACL``
 * Put ``yaacl`` in INSTALLED_APPS, after auth and admin apps
 * Put ``import yaacl`` at the end of your current settings file
-* Run ``./manage.py syncdb``
+* Run ``./manage.py syncdb`` or ``./manage.py migrate``
 
 
 ## Configuration
-* This app get information about your auth user model form settings (``AUTH_USER_MODEL``)
-* If you also have custom group model, then define it in ``settings.ACL_GROUP_USER_MODEL`` (ie: ``cms_user.group``)
+* This app get information about your auth user model form settings
+  (``AUTH_USER_MODEL``)
+* If you also have custom group model, then define it in
+  ``settings.ACL_GROUP_USER_MODEL`` (ie: ``cms_user.group``)
 
 
 ## Usage
 In views, import ``acl_register_view`` or ``acl_register_class``, then
 decorate views you want under control access. After all views are decorated,
-run command ``./manage.py sync_acl``, so all views will be registered in database.
+run command ``./manage.py sync_acl``, so all views will be registered in
+database.
 
 ```python
 from yaacl.decorators import acl_register_view
@@ -83,7 +86,8 @@ So, your resources list will be like this:
 * ``news.views.update`` Update news entry
 * ``news.views.delete`` Delete news entry
 
-Now if you want to check if current user has access to news.index, then in templates
+Now if you want to check if current user has access to news.index, then in
+templates you can check them by using code like:
 
 ```html
 {% load acl %}
@@ -113,11 +117,18 @@ No, it has not.
 ## Information
 * If flag ``is_superuser`` is ``True``, then always access is granted
 * No-access page template is located in ``yaacl/no_access.html`` file
-* Test in ``has_access`` template tag just check if resource name starts with given name
-* This app uses monkey-patch to inject new field (the acl field) into user and group model
+* Test in ``has_access`` template tag just check if resource name starts with
+  given name
+* This app uses monkey-patch to inject new field (the acl field) into user and
+  group model
+* **Big fat warning:** while ``./manage.py migrate`` will create many-to-many
+  relations for yaACL, those table are still not registered in any migration,
+  so if you create migration for auth by using ``./manage.py makemigrations``
+  you will have to fake them by running ``./manage.py migrate --fake auth 0002``
 
 
 ## Todo
 * ``.travis.yml``
 * A flag, to indicates a resources that staff members has full access
-* Extend this documentation with information about two monkey-patches I've been using and information about admin
+* Extend this documentation with information about two monkey-patches I've
+  been using and information about admin
