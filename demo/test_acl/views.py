@@ -1,31 +1,33 @@
 # -*- coding:utf-8 -*-
-from django.template import loader
-from django.template.response import TemplateResponse
+from django.views.generic import View, TemplateView
 
-from yaacl.decorators import acl_register_view
-
-
-def index(request):
-    template = loader.get_template('test_acl/index.html')
-
-    return TemplateResponse(request, template)
+from yaacl.decorators import acl_register_view, acl_register_class
 
 
-@acl_register_view('test_acl.test')
+class Index(TemplateView):
+    template_name = 'test_acl/index.html'
+
+
+@acl_register_view()
 def test(request):
     pass
 
 
-@acl_register_view('test_acl.other_index', 'This is the "other" index')
+@acl_register_view('This is the "other" index')
 def other_index(request):
     pass
 
 
-@acl_register_view('test_acl.utf_test', u"Zażółć gęślą jaźń")
+@acl_register_view(u"Zażółć gęślą jaźń")
 def utf_test(request):
     pass
 
 
-@acl_register_view('test_acl.another_test', u"Another test")
+@acl_register_view(u"Another test")
 def another_test(request):
+    pass
+
+
+@acl_register_class(u"Class based view")
+class TestClassBasedView(View):
     pass
