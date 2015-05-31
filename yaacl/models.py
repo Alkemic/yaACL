@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils.encoding import python_2_unicode_compatible
+
+from .managers import ACLManager
 
 
 @python_2_unicode_compatible
@@ -28,6 +28,8 @@ class ACL(models.Model):
         _("Is available to assign"),
         default=True,
     )
+
+    objects = ACLManager()
 
     class Meta:
         app_label = 'yaacl'
