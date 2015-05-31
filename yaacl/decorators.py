@@ -11,13 +11,13 @@ from .signals import register_resource
 
 def acl_register_view(name=None, resource=None):
     """
-    :type display_name: unicode
-    :type resource_name: str
+    :type name: unicode
+    :type resource: str
     """
 
     def decorator(view_func, name, resource):
         if resource is None:
-            resource_name = "%s.%s" % (
+            resource = "%s.%s" % (
                 view_func.__module__,
                 view_func.__name__,
             )
@@ -43,7 +43,7 @@ def acl_register_view(name=None, resource=None):
             """
             has_access_to_resource = (
                 request.user.is_authenticated() and
-                has_access(request.user, resource_name)
+                has_access(request.user, resource)
             )
             if has_access_to_resource:
                 return view_func(request, *args, **kwargs)
