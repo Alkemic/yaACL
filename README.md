@@ -148,16 +148,8 @@ def transform_resource(sender, resource, name, **kwargs):
 * No-access page template is located in ``yaacl/no_access.html`` file
 * Test in ``has_access`` template tag just check if resource name starts with
   given name
-* This app uses monkey-patch to inject new field (the acl field) into user and
-  group model
-* **Big fat warning:** while ``./manage.py migrate`` will create many-to-many
-  relations for yaACL, those table are still not registered in any migration,
-  so if you create migration for auth by using ``./manage.py makemigrations``
-  you will have to fake them by running ``./manage.py migrate --fake auth 0002``
 
 
 ## Todo
 * ``.travis.yml``
 * A flag, to indicates a resources that staff members has full access
-* Extend this documentation with information about two monkey-patches I've
-  been using and information about admin
