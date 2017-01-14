@@ -13,18 +13,18 @@ Logged in as {{ user }}
 {% endif %}
 
 <ul>
-    <li>{% if request.user|has_access:'test_acl.test' %}
-        <a href="{% url 'test-acl:test' %}">Has</a>{% else %}Doesn't has{% endif %} access to test-acl:test</li>
-    <li>{% if request.user|has_access:'test_acl.other_index' %}
-        <a href="{% url 'test-acl:other_index' %}">Has</a>{% else %}Doesn't has{% endif %} access to test-acl:other_index</li>
-    <li>{% if request.user|has_access:'test_acl.utf_test' %}
-        <a href="{% url 'test-acl:utf_test' %}">Has</a>{% else %}Doesn't has{% endif %} access to test-acl:utf_test</li>
+    <li>{% if request.user|has_access:'test_acl.views.test' %}
+        <a href="{% url 'test-acl:test' %}">Has</a>{% else %}Doesn't has{% endif %} access to test-acl.views.test</li>
+    <li>{% if request.user|has_access:'test_acl.views.other_index' %}
+        <a href="{% url 'test-acl:other_index' %}">Has</a>{% else %}Doesn't has{% endif %} access to test-acl.views.other_index</li>
+    <li>{% if request.user|has_access:'test_acl.views.utf_test' %}
+        <a href="{% url 'test-acl:utf_test' %}">Has</a>{% else %}Doesn't has{% endif %} access to test-acl.views.utf_test</li>
     <li style="list-style: none">&nbsp;</li>
-    <li>{% if request.user|has_access:'test_acl.' %}
-        <a href="{% url 'test-acl:other_index' %}">Has</a>{% else %}Doesn't has{% endif %} any access to test-acl:</li>
+    <li>{% if request.user|has_access:'test_acl.views.' %}
+        <a href="{% url 'test-acl:other_index' %}">Has</a>{% else %}Doesn't has{% endif %} any access to test-acl.views.</li>
     <li style="list-style: none">&nbsp;</li>
-    <li>{% if request.user|has_all_access:'test_acl.' %}
-        <a href="{% url 'test-acl:other_index' %}">Has</a>{% else %}Doesn't has{% endif %} all access to test-acl:</li>
+    <li>{% if request.user|has_all_access:'test_acl.views.' %}
+        <a href="{% url 'test-acl:other_index' %}">Has</a>{% else %}Doesn't has{% endif %} all access to test-acl.views.</li>
 </ul>
 </body>
 </html>
