@@ -14,10 +14,10 @@ def get_acl_resources(user):
     """
     return ACL.objects.filter(
         Q(user=user) | Q(group__in=user.groups.all())
-    ).distinct()
+    ).distinct().values_list('resource', flat=True)
 
 
-def has_access(user, resource, resources=None):
+def has_access(user, resource_name, resources=None):
     """
     :type user: django.contrib.auth.models.User
     :type name : str
@@ -34,13 +34,10 @@ def has_access(user, resource, resources=None):
     if resources is None:
         resources = get_acl_resources(user)
 
-    return any([
-        entry.resource.startswith(resource)
-        for entry in get_acl_resources(user)
-    ])
+    return any(map(lambda r: r.startswith(resource_name), resources))
 
 
-def has_all_access(user, resource, resources=None):
+def has_all_access(user, name, resources=None):
     """
     :type user: django.contrib.auth.models.User
     :type name : str
@@ -57,16 +54,8 @@ def has_all_access(user, resource, resources=None):
     if resources is None:
         resources = get_acl_resources(user)
 
-    user_resources = set([
-        entry.id
-        for entry in resources
-        if entry.resource.startswith('news.')
-    ])
-
-    available_resources = set([
-        entry.id
-        for name, entry in ACL.acl_list.items()
-        if name.startswith('news.')
-    ])
-
+    user_resources = set(filter(lambda r: r.startswith(name), resources))
+    available_resources = set(filter(
+        lambda r: r.startswith(name), ACL.acl_list.keys(),
+    ))
     return user_resources == available_resources
