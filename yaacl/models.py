@@ -5,7 +5,6 @@ from django.utils.encoding import python_2_unicode_compatible
 
 from .managers import ACLManager
 
-from django.contrib.auth.models import User
 from django.conf import settings
 
 user_model = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
@@ -37,7 +36,7 @@ class ACL(models.Model):
     )
 
     user = models.ManyToManyField(
-        User,
+        user_model,
         verbose_name=_('User'),
         blank=True,
         related_name='acl',

@@ -10,23 +10,10 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('auth', '0006_require_contenttypes_0002'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('yaacl', '0001_initial'),
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='UserACL',
-            fields=[
-            ],
-            options={
-                'proxy': True,
-            },
-            bases=('auth.user',),
-            managers=[
-                ('objects', django.contrib.auth.models.UserManager()),
-            ],
-        ),
         migrations.AddField(
             model_name='acl',
             name='group',
